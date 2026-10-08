@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chez Jesse - Level 4 Layout</title>
+  <style>
+/* base.css - shared look & feel + sidebar toggle state. NO layout code here. */
+:root {
+  --header-h: 64px;
+  --sidebar-w: clamp(180px, 20vw, 280px);   /* clamp() for responsive sizing */
+  --gap: 1rem;
+  --bg: #f6f7fb; --ink: #1d2433; --accent: #3b5bdb; --panel: #fff; --line: #dde1ea;
+
+  --left-w: var(--sidebar-w);
+  --right-w: var(--sidebar-w);
+}
+/* Collapse state: a checked checkbox sets the sidebar width to 0 (no JavaScript) */
+body:has(#toggle-left:checked)  { --left-w: 0px; }
+body:has(#toggle-right:checked) { --right-w: 0px; }
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; color: var(--ink); background: var(--bg); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+header { height: var(--header-h); padding: 0 var(--gap); background: var(--accent); color: #fff; }
+.logo { font-weight: 700; font-size: 1.25rem; }
+.user-menu { font-size: .95rem; }
+
+nav { background: #243b9a; }
+nav ul { list-style: none; margin: 0; padding: 0; }
+nav a { display: block; padding: .75rem 1rem; color: #fff; text-decoration: none; }
+nav a:hover { background: rgba(255,255,255,.15); }
+
+.sidebar { background: var(--panel); }
+.sidebar-inner { padding: var(--gap); }
+.sidebar ul { padding-left: 1.1rem; }
+main { padding: var(--gap); }
+
+.toolbar { display: flex; gap: .5rem; margin-bottom: var(--gap); }
+.toolbar label { padding: .4rem .8rem; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); cursor: pointer; font-size: .9rem; }
+body:has(#toggle-left:focus-visible)  label[for="toggle-left"],
+body:has(#toggle-right:focus-visible) label[for="toggle-right"] { outline: 3px solid var(--accent); }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: var(--gap); }
+.card h3 { margin-top: 0; }
+
+footer { padding: var(--gap); background: var(--ink); color: #fff; }
+footer h3 { margin: 0 0 .5rem; }
+footer ul { list-style: none; margin: 0; padding: 0; }
+footer a { color: #cbd5ff; }
+  </style>
+  <!-- Swap which layout is active: use ONE of these at a time -->
+  <link rel="stylesheet" href="flexbox-style.css">
+  <!-- <link rel="stylesheet" href="grid-style.css"> -->
+</head>
+<body>
+  <!-- CSS-only sidebar toggles: checked = collapsed (on desktop) -->
+  <input type="checkbox" id="toggle-left" class="sr-only">
+  <input type="checkbox" id="toggle-right" class="sr-only">
+
+  <header>
+    <div class="logo">Chez Jesse</div>
+    <div class="user-menu">My Account &#9662;</div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <aside class="sidebar left">
+      <div class="sidebar-inner">
+        <h2>Our Menu</h2>
+        <ul>
+          <li>Starters</li>
+          <li>Main Courses</li>
+          <li>Desserts</li>
+          <li>Drinks</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main>
+      <h2>Welcome to Chez Jesse</h2>
+      <p><em>Fresh Food, Great Moments</em></p>
+      <p>
+        Chez Jesse is a restaurant dedicated to serving fresh, flavorful
+        meals in a welcoming environment. Whether you are stopping by for
+        lunch or sharing a meal with friends, we want every visit to feel
+        warm and easy.
+      </p>
+
+      <div class="toolbar">
+        <label for="toggle-left">Toggle menu sidebar</label>
+        <label for="toggle-right">Toggle info sidebar</label>
+      </div>
+
+      <h3>Featured Dishes</h3>
+      <div class="cards">
+        <article class="card">
+          <h3>Grilled Chicken</h3>
+          <p>Tender grilled chicken served with vegetables and seasoned potatoes.</p>
+        </article>
+        <article class="card">
+          <h3>Beef Burger</h3>
+          <p>A juicy beef burger served with crispy fries and our special house sauce.</p>
+        </article>
+        <article class="card">
+          <h3>Vegetable Pasta</h3>
+          <p>Fresh pasta combined with seasonal vegetables and a creamy sauce.</p>
+        </article>
+        <article class="card">
+          <h3>Beef Brochettes</h3>
+          <p>Tender beef skewers served with fresh vegetables.</p>
+        </article>
+        <article class="card">
+          <h3>Fresh Avocado Salad</h3>
+          <p>A refreshing mix of avocado, tomatoes and greens.</p>
+        </article>
+        <article class="card">
+          <h3>Chicken Brochettes</h3>
+          <p>Today's pick: served with seasoned vegetables and crispy potatoes.</p>
+        </article>
+      </div>
+
+      <h3>Our Story</h3>
+      <p>
+        Our restaurant was created to bring people together through fresh
+        food, friendly service, and memorable dining experiences.
+      </p>
+    </main>
+
+    <aside class="sidebar right">
+      <div class="sidebar-inner">
+        <h2>Restaurant Info</h2>
+
+        <h3>Opening Hours</h3>
+        <p>Monday - Friday: 10:00 AM - 9:00 PM</p>
+        <p>Saturday: 10:00 AM - 10:00 PM</p>
+        <p>Sunday: 12:00 PM - 8:00 PM</p>
+
+        <h3>Location</h3>
+        <p>KG 123 Street</p>
+        <p>Kigali, Rwanda</p>
+
+        <h3>Contact</h3>
+        <p>+250 788 000 000</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    <div class="footer-col">
+      <h3>Menu</h3>
+      <ul>
+        <li><a href="#">Starters</a></li>
+        <li><a href="#">Main Courses</a></li>
+        <li><a href="#">Desserts</a></li>
+        <li><a href="#">Drinks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Visit Us</h3>
+      <ul>
+        <li>KG 123 Street, Kigali</li>
+        <li>+250 788 000 000</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Chez Jesse</h3>
+      <ul>
+        <li>&copy; 2026 Chez Jesse</li>
+        <li>All Rights Reserved</li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
