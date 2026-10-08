@@ -15,15 +15,7 @@ header {
   background: #2c3e50;
   color: white;
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  padding: 0 20px;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
+  place-items: center;
 }
 
 main {
@@ -39,17 +31,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  body {
-    grid-template-rows: auto 1fr 60px;
-  }
-
-  header {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    padding: 10px 20px;
-  }
-
-  nav a {
-    margin: 0 8px;
+  header h1 {
+    font-size: 1.5rem;
   }
 }

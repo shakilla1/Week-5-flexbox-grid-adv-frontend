@@ -16,16 +16,10 @@ header {
   background: #2c3e50;
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 20px;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-}
 
 main {
   flex-grow: 1;
@@ -43,14 +37,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    justify-content: center;
-    height: auto;
-    padding: 10px 20px;
-  }
-
-  nav a {
-    margin: 0 8px;
+  header h1 {
+    font-size: 1.5rem;
   }
 }
