@@ -1,0 +1,49 @@
+/* grid-style.css - Level 4 layout using CSS Grid only (colors/typography live in base.css) */
+
+/* Page rows: header | nav | content (fills space) | footer */
+body { display: grid; grid-template-rows: auto auto 1fr auto; min-height: 100vh; }
+
+header { position: sticky; top: 0; z-index: 10; display: grid; grid-template-columns: 1fr auto; align-items: center; }
+
+nav ul { display: grid; grid-auto-flow: column; justify-content: start; }
+
+/* Holy Grail: collapsing a sidebar just changes a column width */
+.page {
+  display: grid;
+  grid-template-columns: var(--left-w) minmax(0, 1fr) var(--right-w);
+  grid-template-areas: "left main right";
+  transition: grid-template-columns .3s;
+}
+.left  { grid-area: left; }
+.right { grid-area: right; }
+main   { grid-area: main; }
+.sidebar { overflow: hidden; }
+.sidebar-inner { width: var(--sidebar-w); }
+
+/* Cards reflow with auto-fill (no media queries needed) */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--gap); }
+
+/* Footer: 3 columns; subgrid lines up headings and lists across columns */
+footer { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; column-gap: var(--gap); }
+.footer-col { grid-row: span 2; display: grid; grid-template-rows: subgrid; }
+@supports not (grid-template-rows: subgrid) { .footer-col { display: block; } }
+
+/* Tablet: main on top, sidebars as equal columns below; hidden until toggled */
+@media (min-width: 600px) and (max-width: 991px) {
+  .page { grid-template-columns: 1fr 1fr; grid-template-areas: "main main" "left right"; }
+  .sidebar { display: none; }
+  body:has(#toggle-left:checked)  .left,
+  body:has(#toggle-right:checked) .right { display: block; }
+  .sidebar-inner { width: auto; }
+}
+
+/* Mobile: everything stacks */
+@media (max-width: 599px) {
+  .page { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "left" "right"; }
+  body:has(#toggle-left:checked)  .left,
+  body:has(#toggle-right:checked) .right { display: none; }
+  .sidebar-inner { width: auto; }
+  nav ul { grid-auto-flow: row; }
+  footer { grid-template-columns: 1fr; grid-template-rows: none; }
+  .footer-col { grid-row: auto; display: block; margin-bottom: var(--gap); }
+}
