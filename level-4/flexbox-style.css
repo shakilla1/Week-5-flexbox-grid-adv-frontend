@@ -1,0 +1,47 @@
+/* flexbox-style.css - Level 4 layout using Flexbox only (colors/typography live in base.css) */
+
+/* Page = vertical flex column; .page grows to fill the leftover height */
+body { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* Sticky header; margin-left:auto pushes the user menu to the right */
+header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; }
+.user-menu { margin-left: auto; }
+
+nav ul { display: flex; flex-wrap: wrap; }
+
+/* Holy Grail row */
+.page { display: flex; flex: 1; }
+.sidebar { flex: 0 0 var(--left-w); overflow: hidden; transition: flex-basis .3s; }
+.right   { flex-basis: var(--right-w); }
+.sidebar-inner { width: var(--sidebar-w); }   /* fixed so content doesn't squish while collapsing */
+main { flex: 1 1 0; min-width: 0; }
+
+/* Cards reflow with flex-wrap (no media queries needed) */
+.cards { display: flex; flex-wrap: wrap; gap: var(--gap); }
+.card  { flex: 1 1 250px; }
+
+/* Footer: 3 equal columns */
+footer { display: flex; gap: var(--gap); }
+.footer-col { flex: 1; }
+
+/* Tablet: main on top, sidebars as equal columns below; hidden until toggled */
+@media (min-width: 600px) and (max-width: 991px) {
+  .page { flex-wrap: wrap; }
+  main { order: -1; flex: 1 1 100%; }
+  .sidebar { display: none; flex: 1 1 50%; }
+  body:has(#toggle-left:checked)  .left,
+  body:has(#toggle-right:checked) .right { display: block; }
+  .sidebar-inner { width: auto; }
+}
+
+/* Mobile: everything stacks */
+@media (max-width: 599px) {
+  .page { flex-direction: column; }
+  main { order: -1; flex: none; }
+  .sidebar { flex: none; }
+  body:has(#toggle-left:checked)  .left,
+  body:has(#toggle-right:checked) .right { display: none; }
+  .sidebar-inner { width: auto; }
+  nav ul { flex-direction: column; }
+  footer { flex-direction: column; }
+}
