@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-rows: auto auto 1fr 60px;
+    min-height: 100vh;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    min-height: 90px;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+nav {
+    background: #34495e;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-areas:
+        "left main right";
+    background: #ecf0f1;
+}
+
+.left-sidebar {
+    grid-area: left;
+    background: #dfe6e9;
+    padding: 25px;
+}
+
+.left-sidebar h2 {
+    margin-bottom: 15px;
+}
+
+.left-sidebar li {
+    margin-bottom: 10px;
+}
+
+main {
+    grid-area: main;
+    padding: 30px;
+}
+
+main h2 {
+    margin-bottom: 15px;
+}
+
+main h3 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.dishes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.dishes article {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.dishes h4 {
+    margin-bottom: 10px;
+}
+
+.right-sidebar {
+    grid-area: right;
+    background: #dfe6e9;
+    padding: 25px;
+}
+
+.right-sidebar h2 {
+    margin-bottom: 15px;
+}
+
+.right-sidebar h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.right-sidebar p {
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #34495e;
+    color: white;
+    display: grid;
+    place-items: center;
+}
+
+@media (max-width: 900px) {
+
+    .layout {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "main main"
+            "left right";
+    }
+
+    .dishes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        grid-template-rows: auto auto 1fr auto;
+    }
+
+    nav {
+        grid-auto-flow: row;
+        justify-items: center;
+        gap: 10px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "main"
+            "left"
+            "right";
+    }
+
+    .dishes {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        min-height: 60px;
+        padding: 20px;
+        text-align: center;
+    }
+}
